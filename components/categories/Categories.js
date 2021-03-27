@@ -8,6 +8,7 @@ export default function Categories() {
 
   const [categories, setCategories] = useState([]);
 
+  const url = "https://stress-free.herokuapp.com/getCategories";
   
   const handleChange = (label,value) => {
     const category = categories.filter(elem=> elem.label === label)[0]
@@ -27,15 +28,13 @@ export default function Categories() {
 
   useEffect( () => {
     const fetchData = async () => {
-      // const response = await fetch(url)
-      // const data = await response.json()
-      // setCategories(data.json();
-      const data = ["films","exercises"]
-      const promises = data.map(elem => getData(elem))
+      const response = await fetch(url);
+      const data = await response.json();
+      const promises = data.categories.map(elem => getData(elem))
       Promise.all(promises).then(arr =>
           setCategories(arr.map((elem,idx) => {
             const value = elem===null?true:elem;
-            return {"label": data[idx], "selected":value}
+            return {"label": data[idx].name, "selected":value}
           }))
       )
     } 
