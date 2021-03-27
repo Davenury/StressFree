@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import {Relax} from './components/relax/Relax';
+import {Settings} from './components/settings/Settings';
 
 export default function App() {
 
@@ -20,25 +22,27 @@ export default function App() {
   }
 
   const getFragment = () => {
+    let fragment;
     switch(value){
       case 0:
-        <Relax />
+        fragment = <Relax />
         break;
       case 1:
-        <Categories />
+        fragment = <Categories />
         break;
       case 2:
-        <Settings />
+        fragment = <Settings />
+        break;
+      default:
+        fragment = <Relax />
         break;
     }
+    return fragment;
   }
 
   return (
     <View style={styles.container}>
-      <Button
-        title={getTextForButton()}
-        onPress={toggleButton}
-      />
+      {getFragment()}
       <StatusBar style="auto" />
       <BottomNavigation
         value={value}
@@ -48,7 +52,7 @@ export default function App() {
         showLabels
         style={{width: "100%", backgroundColor: "#fafafa", fontSize: "16px"}}>
         <BottomNavigationAction label="Relax!" />
-        <BottomNavigationAction label="Cetegories" />
+        <BottomNavigationAction label="Categories" />
         <BottomNavigationAction label="Settings" />
       </BottomNavigation>
     </View>
