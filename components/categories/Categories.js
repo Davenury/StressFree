@@ -29,8 +29,8 @@ export default function Categories() {
   useEffect( () => {
     const fetchData = async () => {
       const response = await fetch(url);
-      const data = await response.json();
-      const promises = data.categories.map(elem => getData(elem))
+      let data = await response.json().then(d => d.categories);
+      const promises = data.map(elem => getData(elem))
       Promise.all(promises).then(arr =>
           setCategories(arr.map((elem,idx) => {
             const value = elem===null?true:elem;
