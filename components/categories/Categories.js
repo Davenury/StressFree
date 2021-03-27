@@ -1,53 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { CheckBox,Switch, StyleSheet, Text, View } from 'react-native';
 import { Button } from '@material-ui/core';
-import Category from './Category'
-import {getData,storeData} from '../../services/Storage'
 
-export default function Categories() {
-
-  const [categories, setCategories] = useState([]);
-
-  const url = "https://stress-free.herokuapp.com/getCategories";
-  
-  const handleChange = (label,value) => {
-    const category = categories.filter(elem=> elem.label === label)[0]
-    category.selected = value
-    setCategories(categories)
-  }
-
-  const createCategories = () => {
-    return categories.map((elem,key) => 
-        <Category label={elem.label} selected={elem.selected} handleChange={handleChange} key={key} />
-      )
-  }
-
-  const savePreferences = () => {
-    categories.forEach(elem =>  storeData(elem.label,elem.selected))
-  }
-
-  useEffect( () => {
-    const fetchData = async () => {
-      const response = await fetch(url);
-      let data = await response.json().then(d => d.categories);
-      const promises = data.map(elem => getData(elem))
-      Promise.all(promises).then(arr =>
-          setCategories(arr.map((elem,idx) => {
-            const value = elem===null?true:elem;
-            return {"label": data[idx].name, "selected":value}
-          }))
-      )
-    } 
-    fetchData()
-  },[])
+export default function Categories(props) {
   
   return (
     <View style={styles.container}>
-        {categories===[]?<View/>:createCategories()}      
+        {props.categories===[]?<View/>:props.createCategories()}      
         <Button
           variant="contained"
           color="primary"
-          onClick={savePreferences}
+          onClick={props.savePreferences}
         >
           Save preferences
         </Button>
