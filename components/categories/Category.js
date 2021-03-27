@@ -2,14 +2,20 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet,Switch, Text, View} from 'react-native';
 
-export default function Category({label,selected}) {
+export default function Category({label,selected, handleChange}) {
 
   const [isSelected, setSelection] = useState(selected);
+
+  const changeSelection = (value) => {
+    setSelection(value)
+    handleChange(label,value)
+  }
+  
   
   return (
     <View style={styles.checkboxContainer}>
         <Switch 
-        onValueChange = {setSelection}
+        onValueChange = {changeSelection}
         value = {isSelected}
         style={styles.checkbox}
         />
