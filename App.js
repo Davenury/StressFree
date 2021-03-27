@@ -5,6 +5,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Relax} from './components/relax/Relax';
 import {Settings} from './components/settings/Settings';
+import Categories from './components/categories/Categories';
 
 export default function App() {
 
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-    height: "100vh"
+    justifyContent: 'center'
   }
 });
