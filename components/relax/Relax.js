@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Clip } from './Clip';
+import { SoundPlayerComponent as SoundPlayer } from './SoundPlayer';
+import { colors } from '../../services/colors.js';
 
 export function Relax({handleClick}) {
 
@@ -10,6 +12,8 @@ export function Relax({handleClick}) {
     let promise = await handleClick()
     parseResponse(promise)
   }   
+
+  let view;
 
     const [relaxView, setRelaxView] = useState(null)
 
@@ -24,13 +28,29 @@ export function Relax({handleClick}) {
             break;
           case "clip":
             console.log(promise)
-            let view = <Clip id={promise.data.url.split("=")[1]} />
+            view = <Clip id={promise.data.url.split("=")[1]} />
+            setRelaxView(view)
+            break;
+          case "music":
+            console.log(promise.data)
+            view = <SoundPlayer url={promise.data.url} onEnd={onEndOfPlaying} listener={listener}/>
+            setRelaxView(view)
+            break
+          case "breathing":
+            view = <Breathing />
             setRelaxView(view)
             break;
           default:
             setRelaxView(<p>You son of a bitch, you did it! You've broken our system!</p>)
             break;
         }
+    }
+
+    let listener;
+
+    const onEndOfPlaying = () => {
+      if(listener) listener.remove()
+      setRelaxView(null)
     }
 
     return (
@@ -58,7 +78,7 @@ export function Relax({handleClick}) {
     button: {
         padding: '40px',
         borderRadius: '50%',
-        backgroundColor: '#38eb38',
+        backgroundColor: colors.green,
         marginTop: "20px",
         marginBottom: "20px"
     },

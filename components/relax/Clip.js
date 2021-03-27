@@ -5,7 +5,7 @@ export function Clip(props){
 
     return (
         <View>
-            <iframe width="650"
+            <iframe width="650npm install react-native-sound"
                 height="400"
                 src={"https://www.youtube.com/embed/"+props.id}
                 title="YouTube video player" 
