@@ -22,11 +22,13 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: "row",
     marginBottom: 20,
+    width:"100%"
   },
   checkbox: {
     alignSelf: "center",
   },
   label: {
+    alignSelf: "flex-end",
     margin: 8,
   },
 });
