@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { Clip } from './Clip';
 
 export function Relax({handleClick}) {
 
@@ -20,6 +21,11 @@ export function Relax({handleClick}) {
               <img src={promise.data.url}
                style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}/>
             </View>)
+            break;
+          case "clip":
+            console.log(promise)
+            let view = <Clip id={promise.data.url.split("=")[1]} />
+            setRelaxView(view)
             break;
           default:
             setRelaxView(<p>You son of a bitch, you did it! You've broken our system!</p>)
