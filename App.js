@@ -76,7 +76,6 @@ export default function App() {
 
   const handleClick = async () => {
     let randomCategory = getRandomCategory()
-    console.log(categories)
     let response = await fetch(url + randomCategory.endpoint)
     let data = await response.json()
     return {
