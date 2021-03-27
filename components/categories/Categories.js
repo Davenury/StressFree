@@ -1,18 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { CheckBox,Switch, StyleSheet, Text, View, Button, Alert } from 'react-native';
-// import ToggleSwitch from 'toggle-switch-react-native';
+import { CheckBox,Switch, StyleSheet, Text, View, Button, Alert,AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Category from './Category'
 
 export default function Categories() {
 
-  const [isSelected, setSelection] = useState(false);
   const [categories, setCategories] = useState([]);
 
   const url = "./mockDB.json"
 
   const createCategories = () => {
-    console.log("There")
     return categories.map((elem,key) => 
         <Category label={elem.label} selected={elem.selected} key={key} />
       )
