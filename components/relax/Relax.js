@@ -20,14 +20,14 @@ export function Relax() {
     >
     <Text style={styles.buttonText}>Relax</Text>
     </View>
- </Pressable> : <Pressable onPress={relax} visible={show}>
- <View
- visible={show}
- style={styles.back}
- >
- <Text style={styles.buttonText}>Go back</Text>
- </View>
-</Pressable>
+      </Pressable> : <Pressable onPress={relax} visible={show}>
+        <View
+        visible={show}
+        style={styles.back}
+        >
+        <Text style={styles.buttonText}>Go back</Text>
+        </View>
+      </Pressable>
     return (
       <View style={styles.container}>
       {toRender}
@@ -46,7 +46,7 @@ export function Relax() {
     button: {
         padding: '40px',
         borderRadius: '50%',
-        backgroundColor: '#38eb38',
+        backgroundColor: '#38eb38'
     },
     buttonText: {
         color: 'white',
@@ -58,7 +58,7 @@ export function Relax() {
       },
     back: {
         backgroundColor: '#38a0eb',
-        padding: '10px',
+        padding: '10px'
     }
 
   });
