@@ -1,44 +1,88 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Relax} from './components/relax/Relax';
 import {Settings} from './components/settings/Settings';
 import Categories from './components/categories/Categories';
+import {getData,storeData} from './services/Storage';
+import Category from './components/categories/Category'
 
 export default function App() {
 
-  const [toggled, setToggled] = useState(false)
   const [value, setValue] = useState(0)
+  const [categories, setCategories] = useState([]);
 
-  const toggleButton = () => {
-    setToggled(!toggled)
+  const url = "https://stress-free.herokuapp.com/";
+  
+  const handleCategoryChange = (label,value) => {
+    const category = categories.filter(elem=> elem.label === label)[0]
+    category.selected = value
+    setCategories(categories)
   }
 
-  const getTextForButton = () => {
-    if(toggled)
-      return "Push me!"
-    return "Ouch!"
+  const getRandomCategory = () => {
+    let filteredCategories = categories.filter(category => category.selected)
+    return filteredCategories[Math.floor(Math.random() * filteredCategories.length)]
+  }
+
+  const createCategories = () => {
+    return categories.map((elem,key) => 
+        <Category label={elem.label} selected={elem.selected} handleChange={handleCategoryChange} key={key} />
+      )
+  }
+
+  useEffect( () => {
+    const fetchData = async () => {
+      const response = await fetch(url + "categories");
+      let data = await response.json().then(d => d.categories)
+      const promises = data.map(elem => getData(elem.name))
+      Promise.all(promises).then(arr =>
+          setCategories(arr.map((elem,idx) => {
+            const value = elem===null?true:elem;
+            return {"label": data[idx].name, "selected":value, "endpoint": data[idx].endpoint}
+          }))
+      )
+    } 
+    fetchData()
+  },[])
+
+  const savePreferences = () => {
+    categories.forEach(elem =>  storeData(elem.label,elem.selected))
   }
 
   const getFragment = () => {
     let fragment;
     switch(value){
       case 0:
-        fragment = <Relax />
+        fragment = <Relax handleClick={handleClick} />
         break;
       case 1:
-        fragment = <Categories />
+        fragment = <Categories
+          savePreferences={savePreferences}
+          createCategories={createCategories}
+          categories={categories}/>
         break;
       case 2:
         fragment = <Settings />
         break;
       default:
-        fragment = <Relax />
+        fragment = <Relax handleClick={handleClick}/>
         break;
     }
     return fragment;
+  }
+
+  const handleClick = async () => {
+    let randomCategory = getRandomCategory()
+    console.log(categories)
+    let response = await fetch(url + randomCategory.endpoint)
+    let data = await response.json()
+    return {
+      data: data,
+      category: randomCategory.endpoint
+    }
   }
 
   return (

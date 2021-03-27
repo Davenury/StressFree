@@ -1,36 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 
-export function Relax() {
+export function Relax({handleClick}) {
 
-    const [show, setShow] = useState(true)
+  const relax = async () => {
+    console.log("I will relax your li'l brains");
+    let promise = await handleClick()
+    parseResponse(promise)
+  }   
 
-    const relax = (source) => {
-        console.log("I will relax your li'l brains");
-        setShow(!show)
-      }  
+    const [relaxView, setRelaxView] = useState(null)
 
+    const parseResponse = (promise) => {
+        switch(promise.category){
+          case "meme":
+            console.log(promise.data.url)
+            setRelaxView(<View>
+              <img src={promise.data.url}
+               style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}/>
+            </View>)
+            break;
+          default:
+            setRelaxView(<p>You son of a bitch, you did it! You've broken our system!</p>)
+            break;
+        }
+    }
 
-
-    var toRender = show ? <Pressable onPress={relax} visible={show}>
-    <View
-    visible={show}
-    style={styles.button}
-    >
-    <Text style={styles.buttonText}>Relax</Text>
-    </View>
-      </Pressable> : <Pressable onPress={relax} visible={show}>
-        <View
-        visible={show}
-        style={styles.back}
-        >
-        <Text style={styles.buttonText}>Go back</Text>
-        </View>
-      </Pressable>
     return (
       <View style={styles.container}>
-      {toRender}
+        <Pressable onPress={relax}>
+          <View
+          style={styles.button}
+          >
+          <Text style={styles.buttonText}>Relax</Text>
+          </View>
+        </Pressable>
+        {relaxView}
       <StatusBar style="auto" />
       </View>
     );
@@ -41,12 +47,14 @@ export function Relax() {
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'top',
     },
     button: {
         padding: '40px',
         borderRadius: '50%',
-        backgroundColor: '#38eb38'
+        backgroundColor: '#38eb38',
+        marginTop: "20px",
+        marginBottom: "20px"
     },
     buttonText: {
         color: 'white',
