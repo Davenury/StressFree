@@ -1,0 +1,12 @@
+{
+  "name": "Stressfree",
+  "displayName": "Stressfree",
+  "expo": {
+    "name": "Stressfree",
+    "slug": "Stressfree",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
