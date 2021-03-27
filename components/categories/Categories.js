@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { CheckBox,Switch, StyleSheet, Text, View, Button, Alert,AsyncStorage } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Category from './Category'
 
 export default function Categories() {
