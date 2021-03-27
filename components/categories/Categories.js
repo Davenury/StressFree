@@ -6,21 +6,22 @@ export default function Categories() {
 
   const [categories, setCategories] = useState([]);
 
-  const url = "./mockDB.json"
+  const url = "https://stress-free.herokuapp.com/getCategories";
 
   const createCategories = () => {
     return categories.map((elem,key) => 
-        <Category label={elem.label} selected={elem.selected} key={key} />
+        <Category label={elem.name} selected={true} key={key} />
       )
   }
 
   useEffect( () => {
     const getData = async () => {
-      const response = await fetch(url)
-      // const data = await response.json()
-      // setCategories(data.json();
-      setCategories([{"label": "films","selected": false},{"label": "exercises", "selected": false}])
-      console.log(categories)
+      console.log("here")
+      fetch(url)
+        .then(response => response.json())
+        .then(data => setCategories(data.categories))
+        .catch(err => console.log(err))
+      // setCategories([{"label": "films","selected": false},{"label": "exercises", "selected": false}])
     } 
     getData()
   },[])
