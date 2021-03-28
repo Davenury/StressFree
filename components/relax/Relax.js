@@ -35,6 +35,7 @@ export function Relax({handleClick}) {
             break;
           case "music":
             console.log(promise.data)
+            setRelaxView(<View style={styles.container}></View>)
             view = <SoundPlayer url={promise.data.url}/>
             setRelaxView(view)
             break
