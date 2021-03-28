@@ -13,7 +13,6 @@ import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 export function Relax({handleClick}) {
 
   const relax = async () => {
-    console.log("I will relax your li'l brains");
     let promise = await handleClick()
     parseResponse(promise)
   }   
