@@ -3,6 +3,7 @@ import { CheckBox,Switch, StyleSheet, Text, View } from 'react-native';
 import { Button } from '@material-ui/core';
 
 export default function Categories(props) {
+
   
   return (
     <View style={styles.container}>

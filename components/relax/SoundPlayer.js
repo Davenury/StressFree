@@ -1,23 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import DotLoader from "react-spinners/DotLoader";
 import { colors } from '../../services/colors';
-import SoundPlayer from 'react-native-sound-player'
+import { Audio } from 'expo-av';
+import { View,Button } from 'react-native';
 
 export function SoundPlayerComponent(props){
 
-    const play = () => {
-        try {
-            SoundPlayer.playUrl('https://example.com/music.mp3')
-        } catch (e) {
-            console.log(`cannot play the sound file`, e)
-        }
+    const [sound, setSound] = useState();
+
+    const playSound = async () => {
+        const { sound } = await Audio.Sound.createAsync(props.url);
+        setSound(sound);
+        await sound.playAsync();
+      }
+
+    const stopMusic = async () => {
+        sound.unloadAsync();
     }
 
     useEffect(() => {
-        play()
+        return sound
+        ? () => {
+            console.log('Unloading Sound');
+            sound.unloadAsync(); }
+        : undefined;
+    }, [sound]);
+
+
+    useEffect(() => {
+        playSound()
     }, [])
 
     return(
-        <DotLoader size={150} color={colors.green} />
+        <View>
+            <DotLoader size={150} color={colors.green} />
+            <Button 
+                variant="contained"
+                color="primary"
+                onClick={stopMusic}>
+                    Stop music
+            </Button>
+        </View>
     )
 }
