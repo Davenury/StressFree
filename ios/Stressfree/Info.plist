@@ -55,7 +55,5 @@
 	<false/>
   <key>UIStatusBarStyle</key>
   <string>UIStatusBarStyleDefault</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>Allow $(PRODUCT_NAME) to access your microphone</string>
 </dict>
 </plist>
