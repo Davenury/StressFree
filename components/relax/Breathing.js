@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import BounceLoader from "react-spinners/BounceLoader";
+import RingLoader from "react-spinners/RingLoader";
 import { colors } from '../../services/colors';
 import { View } from 'react-native';
 import { Box, Button } from '@material-ui/core';
@@ -45,10 +45,12 @@ export function Breathing(props){
 
     return(
         <View>
-            <Box m={2} p={1} style={{marginLeft: "auto", marginRight: "auto"}}>
-                <BounceLoader loading={true} color={colors.green} size={200}/>
+            <Box>
+                <RingLoader loading={true} color={colors.green} size={170}/>
             </Box>
-            <Loader messages={props.instructions} onEnd={props.onEnd}/>
+            <Box style={{marginTop: "200px"}}>
+                <Loader messages={props.instructions} onEnd={props.onEnd}/>
+            </Box>
         </View>
     )
 } 

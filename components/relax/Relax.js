@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Clip } from './Clip';
 import { SoundPlayerComponent as SoundPlayer } from './SoundPlayer';
 import { colors } from '../../services/colors.js';
-import { Meme } from './Meme'
-import { Breathing } from './Breathing'
-import { getHalfWidth } from '../../services/dimensions'
+import { Meme } from './Meme';
+import { Breathing } from './Breathing';
+import { getHalfWidth } from '../../services/dimensions';
+import { ScrollView } from '@material-ui/core';
 
 export function Relax({handleClick}) {
 
@@ -18,27 +19,27 @@ export function Relax({handleClick}) {
 
   let view;
 
-    const [relaxView, setRelaxView] = useState(null)
+    const [relaxView, setRelaxView] = useState(<View style={styles.container}></View>)
 
     const parseResponse = (promise) => {
         switch(promise.category){
           case "meme":
-            view = <Meme url={promise.data.url} />
+            view = <Meme url={promise.data.url} style={styles.container} />
             setRelaxView(view)
             break;
           case "clip":
             console.log(promise)
-            view = <Clip id={promise.data.url.split("=")[1]} />
+            view = <Clip id={promise.data.url.split("=")[1]} style={styles.container} />
             setRelaxView(view)
             break;
           case "music":
             console.log(promise.data)
-            view = <SoundPlayer url={promise.data.url}/>
+            view = <SoundPlayer url={promise.data.url} style={styles.container}/>
             setRelaxView(view)
             break
           case "breathing":
             console.log(promise.data)
-            view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd}/>
+            view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd} style={styles.container}/>
             setRelaxView(view)
             break;
           default:
@@ -61,20 +62,19 @@ export function Relax({handleClick}) {
     }
 
     const onEnd = () => {
-      setRelaxView(null)
+      setRelaxView(<View style={styles.container}></View>)
     }
 
     return (
       <View style={styles.container}>
+        {relaxView}
         <Pressable onPress={relax}>
           <View
-          style={styles.button}
+            style={styles.button}
           >
           <Text style={styles.buttonText}>Relax</Text>
           </View>
         </Pressable>
-        {relaxView}
-      <StatusBar style="auto" />
       </View>
     );
   }
@@ -93,12 +93,12 @@ export function Relax({handleClick}) {
         backgroundColor: colors.green,
         marginTop: "20px",
         marginBottom: "20px",
-        width: getHalfWidth()*5/8,
-        height: getHalfWidth()*5/8
+        width: "160px",
+        height: "160px"
     },
     buttonText: {
         color: 'white',
-        fontSize: '30px',
+        fontSize: '26px',
         userSelect: 'none',
         justifyContent:"center",
         marginTop: "10px",
