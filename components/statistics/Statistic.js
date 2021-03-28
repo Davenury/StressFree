@@ -61,7 +61,7 @@ export function Statistic(props){
           { data.datasets[0].data ? <Card variant="outlined">
       <CardContent><LineChart
             data={data}
-            width={350}
+            width={300}
             height={256}
             verticalLabelRotation={30}
             chartConfig={chartConfig}
