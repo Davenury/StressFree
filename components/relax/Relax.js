@@ -1,14 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, ScrollView } from 'react-native';
 import { Clip } from './Clip';
 import { SoundPlayerComponent as SoundPlayer } from './SoundPlayer';
 import { colors } from '../../services/colors.js';
 import { Meme } from './Meme';
 import { Breathing } from './Breathing';
-import { getHalfWidth } from '../../services/dimensions';
-import { ScrollView } from '@material-ui/core';
-import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
+import { getHalfWidth, getHeight } from '../../services/dimensions';
 
 export function Relax({handleClick}) {
 
@@ -73,7 +71,9 @@ export function Relax({handleClick}) {
 
     return (
       <View style={styles.container}>
-        {relaxView}
+        <ScrollView>
+          {relaxView}
+        </ScrollView> 
         <Pressable onPress={relax}>
           <View
             style={styles.button}
@@ -87,11 +87,13 @@ export function Relax({handleClick}) {
   
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      height: getHeight() - 50,
       backgroundColor: '#fff',
       alignItems: 'center',
-      justifyContent: 'top',
-      width: getHalfWidth()
+      marginLeft: "auto",
+      marginRight: "auto",
+      justifyContent: 'flex-end',
+      width: "100%"
     },
     button: {
         padding: '40px',
@@ -117,5 +119,4 @@ export function Relax({handleClick}) {
         backgroundColor: '#38a0eb',
         padding: '10px'
     }
-
   });
