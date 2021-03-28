@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Statistic } from './Statistic'
-import { ScrollView } from 'react-native'
+import { ScrollView, View, StyleSheet } from 'react-native'
+import {getHeight} from '../../services/dimensions'
 
 const groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
@@ -25,8 +26,22 @@ export function Statistics(props){
     }
 
     return(
-        <ScrollView>
-            { counts ? prepareCounts() : <p></p> }
-        </ScrollView>
+        <View style={styles.container}>
+            <ScrollView>
+                { counts ? prepareCounts() : <p></p> }
+            </ScrollView>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      height: getHeight() - 50,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      marginLeft: "auto",
+      marginRight: "auto",
+      justifyContent: 'flex-end',
+      width: "100%"
+    },
+  })
