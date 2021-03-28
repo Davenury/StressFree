@@ -109,7 +109,7 @@ export function Relax({handleClick}) {
         fontSize: '26px',
         userSelect: 'none',
         justifyContent:"center",
-        marginTop: "10px",
+        marginTop: "20px",
         textAlign: "center"
     },
     buttonHover: {
