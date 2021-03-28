@@ -1,6 +1,6 @@
 import React from 'react';
 import { getWidth, getHeight } from '../../services/dimensions';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 
 export function Meme(props){
 
@@ -11,9 +11,9 @@ export function Meme(props){
     console.log(props.url)
 
     return(
-        <View>
+        <ScrollView>
             <img src={props.url}
-            style={{width: prepareWidth(), marginLeft: "auto", marginRight: "auto"}}/>
-        </View> 
+            style={{width: prepareWidth(), marginLeft: "auto", marginRight: "auto", marginTop: "20px"}}/>
+        </ScrollView> 
     )
 }

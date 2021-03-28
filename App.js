@@ -4,11 +4,13 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Relax} from './components/relax/Relax';
-import {Settings} from './components/settings/Settings';
 import Categories from './components/categories/Categories';
 import {getData,storeData} from './services/Storage';
 import Category from './components/categories/Category';
 import {Statistics} from './components/statistics/Statistics';
+import HomeIcon from '@material-ui/icons/Home';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 export default function App() {
 
@@ -66,10 +68,7 @@ export default function App() {
           categories={categories}/>
         break;
       case 2:
-        fragment = <Settings />
-        break;
-      case 3:
-        fragment = <Statistics />
+        fragment = <Statistics url={url}/>
         break;
       default:
         fragment = <Relax handleClick={handleClick}/>
@@ -99,10 +98,9 @@ export default function App() {
         }}
         showLabels
         style={{width: "100%", backgroundColor: "#fafafa", fontSize: "16px"}}>
-        <BottomNavigationAction label="Relax!" />
-        <BottomNavigationAction label="Categories" />
-        <BottomNavigationAction label="Settings" />
-        <BottomNavigationAction label="Statistics" />
+        <BottomNavigationAction label="Relax!" icon={<HomeIcon />}/>
+        <BottomNavigationAction label="Categories" icon={<FormatListBulletedIcon/>}/>
+        <BottomNavigationAction label="Statistics" icon={<EqualizerIcon/>}/>
       </BottomNavigation>
     </View>
   );
