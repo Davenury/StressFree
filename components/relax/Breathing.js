@@ -44,8 +44,8 @@ const Loader = props => {
 export function Breathing(props){
 
     return(
-        <View>
-            <Box>
+        <View style={{width: "300px", height: "400px"}}>
+            <Box style={{width:"50%", margin: "auto", marginRight: "100px"}}>
                 <RingLoader loading={true} color={colors.green} size={170}/>
             </Box>
             <Box style={{marginTop: "200px"}}>
