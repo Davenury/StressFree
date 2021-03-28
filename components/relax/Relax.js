@@ -25,22 +25,22 @@ export function Relax({handleClick}) {
     const parseResponse = (promise) => {
         switch(promise.category){
           case "meme":
-            view = <Meme url={promise.data.url} style={styles.container} />
+            view = <Meme url={promise.data.url}/>
             setRelaxView(view)
             break;
           case "clip":
             console.log(promise)
-            view = <Clip id={promise.data.url.split("=")[1]} style={styles.container} />
+            view = <Clip id={promise.data.url.split("=")[1]}/>
             setRelaxView(view)
             break;
           case "music":
             console.log(promise.data)
-            view = <SoundPlayer url={promise.data.url} style={styles.container}/>
+            view = <SoundPlayer url={promise.data.url}/>
             setRelaxView(view)
             break
           case "breathing":
             console.log(promise.data)
-            view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd} style={styles.container}/>
+            view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd}/>
             setRelaxView(view)
             break;
           case "landscape":
