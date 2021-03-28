@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {Relax} from './components/relax/Relax';
-import {Settings} from './components/settings/Settings';
 import Categories from './components/categories/Categories';
 import {getData,storeData} from './services/Storage';
 import Category from './components/categories/Category';
@@ -69,7 +68,7 @@ export default function App() {
           categories={categories}/>
         break;
       case 2:
-        fragment = <Statistics />
+        fragment = <Statistics url={url}/>
         break;
       default:
         fragment = <Relax handleClick={handleClick}/>

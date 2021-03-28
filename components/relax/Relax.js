@@ -8,6 +8,7 @@ import { Meme } from './Meme';
 import { Breathing } from './Breathing';
 import { getHalfWidth } from '../../services/dimensions';
 import { ScrollView } from '@material-ui/core';
+import { LocalConvenienceStoreOutlined } from '@material-ui/icons';
 
 export function Relax({handleClick}) {
 
@@ -40,6 +41,11 @@ export function Relax({handleClick}) {
           case "breathing":
             console.log(promise.data)
             view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd} style={styles.container}/>
+            setRelaxView(view)
+            break;
+          case "landscape":
+            console.log(promise.data)
+            view = <Meme url={promise.data.url}/>
             setRelaxView(view)
             break;
           default:
