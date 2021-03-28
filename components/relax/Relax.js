@@ -26,23 +26,19 @@ export function Relax({handleClick}) {
             setRelaxView(view)
             break;
           case "clip":
-            console.log(promise)
             view = <Clip id={promise.data.url.split("=")[1]}/>
             setRelaxView(view)
             break;
           case "music":
-            console.log(promise.data)
             setRelaxView(<View style={styles.container}></View>)
             view = <SoundPlayer url={promise.data.url}/>
             setRelaxView(view)
             break
           case "breathing":
-            console.log(promise.data)
             view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd}/>
             setRelaxView(view)
             break;
           case "landscape":
-            console.log(promise.data)
             view = <Meme url={promise.data.url}/>
             setRelaxView(view)
             break;

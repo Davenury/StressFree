@@ -8,8 +8,6 @@ export function Meme(props){
         return `${getWidth()*3/4}px`
     }
 
-    console.log(props.url)
-
     return(
         <ScrollView>
             <img src={props.url}
