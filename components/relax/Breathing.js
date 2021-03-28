@@ -18,7 +18,6 @@ const Loader = props => {
 
     useEffect(() => {
       let timeout;
-      console.log(messageIndex)
       if (messageIndex < messages.length - 1) {
         timeout = setTimeout(() => setMessageIndex(messageIndex + 1), messages[messageIndex].value * 1000);
       }
@@ -27,8 +26,6 @@ const Loader = props => {
         clearTimeout(timeout);
       };
     }, [messages, messageIndex]);
-  
-    console.log(messages)
 
     return( <View>
         <Box m={2} p={1} style={{textAlign: "center"}}>
