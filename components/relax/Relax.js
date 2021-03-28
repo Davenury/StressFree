@@ -2,6 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Clip } from './Clip';
+import { SoundPlayerComponent as SoundPlayer } from './SoundPlayer';
+import { colors } from '../../services/colors.js';
+import { Meme } from './Meme'
+import { Breathing } from './Breathing'
+import { getHalfWidth } from '../../services/dimensions'
 
 export function Relax({handleClick}) {
 
@@ -11,26 +16,52 @@ export function Relax({handleClick}) {
     parseResponse(promise)
   }   
 
+  let view;
+
     const [relaxView, setRelaxView] = useState(null)
 
     const parseResponse = (promise) => {
         switch(promise.category){
           case "meme":
-            console.log(promise.data.url)
-            setRelaxView(<View>
-              <img src={promise.data.url}
-               style={{width: "50%", marginLeft: "auto", marginRight: "auto"}}/>
-            </View>)
+            view = <Meme url={promise.data.url} />
+            setRelaxView(view)
             break;
           case "clip":
             console.log(promise)
-            let view = <Clip id={promise.data.url.split("=")[1]} />
+            view = <Clip id={promise.data.url.split("=")[1]} />
+            setRelaxView(view)
+            break;
+          case "music":
+            console.log(promise.data)
+            view = <SoundPlayer url={promise.data.url}/>
+            setRelaxView(view)
+            break
+          case "breathing":
+            console.log(promise.data)
+            view = <Breathing instructions={prepareInstructions(promise.data)} onEnd={onEnd}/>
             setRelaxView(view)
             break;
           default:
             setRelaxView(<p>You son of a bitch, you did it! You've broken our system!</p>)
             break;
         }
+    }
+
+    const prepareInstructions = (instructions) => {
+      let tmpArray = [];
+      for(let instructionObject of instructions){
+        for(let [type, object] of Object.entries(instructionObject)){
+            for(let [key, value] of Object.entries(object)){
+                tmpArray.push({key, value})
+            }
+        }
+      }
+      tmpArray.push({key: "end", value: 0})
+      return tmpArray;
+    }
+
+    const onEnd = () => {
+      setRelaxView(null)
     }
 
     return (
@@ -54,18 +85,24 @@ export function Relax({handleClick}) {
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'top',
+      width: getHalfWidth()
     },
     button: {
         padding: '40px',
         borderRadius: '50%',
-        backgroundColor: '#38eb38',
+        backgroundColor: colors.green,
         marginTop: "20px",
-        marginBottom: "20px"
+        marginBottom: "20px",
+        width: getHalfWidth()*5/8,
+        height: getHalfWidth()*5/8
     },
     buttonText: {
         color: 'white',
-        fontSize: '24px',
+        fontSize: '30px',
         userSelect: 'none',
+        justifyContent:"center",
+        marginTop: "10px",
+        textAlign: "center"
     },
     buttonHover: {
         backgroundColor: '#4CAF50'

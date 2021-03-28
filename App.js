@@ -7,7 +7,8 @@ import {Relax} from './components/relax/Relax';
 import {Settings} from './components/settings/Settings';
 import Categories from './components/categories/Categories';
 import {getData,storeData} from './services/Storage';
-import Category from './components/categories/Category'
+import Category from './components/categories/Category';
+import {Statistics} from './components/statistics/Statistics';
 
 export default function App() {
 
@@ -67,6 +68,9 @@ export default function App() {
       case 2:
         fragment = <Settings />
         break;
+      case 3:
+        fragment = <Statistics />
+        break;
       default:
         fragment = <Relax handleClick={handleClick}/>
         break;
@@ -98,6 +102,7 @@ export default function App() {
         <BottomNavigationAction label="Relax!" />
         <BottomNavigationAction label="Categories" />
         <BottomNavigationAction label="Settings" />
+        <BottomNavigationAction label="Statistics" />
       </BottomNavigation>
     </View>
   );
