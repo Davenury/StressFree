@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
+import { getWidth } from '../../services/dimensions'
 
 export function Clip(props){
 
     return (
         <View>
-            <iframe width="650npm install react-native-sound"
+            <iframe width={getWidth()}
                 height="400"
                 src={"https://www.youtube.com/embed/"+props.id}
                 title="YouTube video player" 
